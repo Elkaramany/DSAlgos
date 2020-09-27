@@ -105,8 +105,16 @@ function Merge(arr1, arr2){
     }
     return results;
 }
-
 //Merge sort end
 
+function Fibonacci(num, memo=[undefined, 1, 1]){
+    if(num <= 2) return 1;
+    let arr =[undefined, 1, 1];
+    for(let i = 3; i<=num;i++){
+        arr[i] = arr[i-1] + arr[i-2];
+    }
+    return arr[num];
+}
+
 let x = radixSort([8,9,10,11,1,2,3,4,5,6,7,545])
-console.log(x);
+console.log(Fibonacci(10))

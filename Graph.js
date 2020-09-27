@@ -41,28 +41,28 @@ class Graph{
     }
 
     iterativeDFS(v){
-        let stack = [v], visited = {}, result = [], vertex;
-        visited[v] = true;
+        let stack = [v], result = [], visited = {},currentVertex;
         while(stack.length){
-            vertex = stack.pop();
-            result.push(vertex);
-            this.adjacencyList[vertex].forEach( neighbour =>{
-                if(!visited[neighbour]){
-                    visited[vertex] = true;
-                    stack.push(neighbour);
-                }
-            })
+            currentVertex = stack.pop();
+            visited[currentVertex] = true;
+            result.push(currentVertex);
+            this.adjacencyList[currentVertex].forEach(neighbor => {
+               if(!visited[neighbor]){
+                   visited[neighbor] = true;
+                   stack.push(neighbor)
+               } 
+            });
         }
         return result;
     }
 
     BFS(v){
-        let queue = [v], visited = {}, result = [], vertex;
+        let queue = [v], visited = {}, result = [], currentVertex;
         while(queue.length){
-            vertex = queue.shift();
-            result.push(vertex);
-            visited[vertex] = true;
-            this.adjacencyList[vertex].forEach(neighbour =>{
+            currentVertex = queue.shift();
+            result.push(currentVertex);
+            visited[currentVertex] = true;
+            this.adjacencyList[currentVertex].forEach(neighbour =>{
                 if(!visited[neighbour]){
                     visited[neighbour] = true;
                     queue.push(neighbour);
