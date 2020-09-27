@@ -25,19 +25,67 @@ class Graph{
         this.adjacencyList[v1] = this.adjacencyList[v1].filter(v => v != v2)
         this.adjacencyList[v2] = this.adjacencyList[v2].filter(v => v != v1)
     }
+
+    recursiveDFS(v){
+        let result = [], visited = {};
+        let list = this.adjacencyList;
+        (function DFS(v){
+            if(!v) return null;
+            visited[v] = true;
+            result.push(v);
+            list[v].forEach(neighbour => {
+                if(!visited[neighbour]) return DFS(neighbour)
+            });
+        })(v);
+        return result;
+    }
+
+    iterativeDFS(v){
+        let stack = [v], visited = {}, result = [], vertex;
+        visited[v] = true;
+        while(stack.length){
+            vertex = stack.pop();
+            result.push(vertex);
+            this.adjacencyList[vertex].forEach( neighbour =>{
+                if(!visited[neighbour]){
+                    visited[vertex] = true;
+                    stack.push(neighbour);
+                }
+            })
+        }
+        return result;
+    }
+
+    BFS(v){
+        let queue = [v], visited = {}, result = [], vertex;
+        while(queue.length){
+            vertex = queue.shift();
+            result.push(vertex);
+            visited[vertex] = true;
+            this.adjacencyList[vertex].forEach(neighbour =>{
+                if(!visited[neighbour]){
+                    visited[neighbour] = true;
+                    queue.push(neighbour);
+                }
+            })
+        }
+        return result;
+    }
 }
 
 let g = new Graph();
-g.addVertex("Dallas");
-g.addVertex("Tokyo");
-g.addVertex("Aspen");
-g.addVertex("Los Angeles");
-g.addVertex("Hong Kong")
-g.addEdge("Dallas", "Tokyo");
-g.addEdge("Dallas", "Aspen");
-g.addEdge("Hong Kong", "Tokyo");
-g.addEdge("Hong Kong", "Dallas");
-g.addEdge("Los Angeles", "Hong Kong");
-g.addEdge("Los Angeles", "Aspen");
-g.removeVertex('Los Angeles')
-console.log(g);
+g.addVertex("A")
+g.addVertex("B")
+g.addVertex("C")
+g.addVertex("D")
+g.addVertex("E")
+g.addVertex("F")
+
+g.addEdge("A", "B")
+g.addEdge("A", "C")
+g.addEdge("B","D")
+g.addEdge("C","E")
+g.addEdge("D","E")
+g.addEdge("D","F")
+g.addEdge("E","F")
+console.log(g.BFS("A"));
