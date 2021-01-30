@@ -13,6 +13,7 @@ class HashTable {
       }
       return total;
     }
+
     set(key,value){
       let index = this._hash(key);
       if(!this.keyMap[index]){
@@ -30,6 +31,7 @@ class HashTable {
           }
         }
       }
+      
       return undefined;
     }
 

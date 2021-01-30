@@ -1,48 +1,48 @@
-class Node{
-    constructor(val){
+class Node {
+    constructor(val) {
         this.val = val;
         this.next = null;
     }
 }
 
-class SinglyLinkedList{
-    constructor(){
+class SinglyLinkedList {
+    constructor() {
         this.head = null;
         this.tail = null;
         this.length = 0;
     }
 
-    Push(val){
+    Push(val) {
         let newNode = new Node(val);
-        if(!this.head){
+        if (!this.head) {
             this.head = newNode;
             this.tail = newNode;
-        }else{
+        } else {
             this.tail.next = newNode;
             this.tail = newNode;
         }
         this.length++;
     }
-    
-    PushFirst(val){
+
+    PushFirst(val) {
         let newNode = new Node(val);
-        if(!this.head){
+        if (!this.head) {
             this.head = this.tail = newNode;
-        }else{
+        } else {
             newNode.next = this.head;
             this.head = newNode;
         }
         this.length++;
     }
 
-    Pop(){
-        if(this.length === 0) return undefined;
-        if(this.length === 1){
+    Pop() {
+        if (this.length === 0) return undefined;
+        if (this.length === 1) {
             this.head = this.tail = null;
             return;
         }
         let beforeLast = this.head;
-        while(beforeLast.next !== this.tail){
+        while (beforeLast.next !== this.tail) {
             beforeLast = beforeLast.next;
         }
         beforeLast.next = null;
@@ -50,52 +50,52 @@ class SinglyLinkedList{
         this.length--;
     }
 
-    Display(){
+    Display() {
         let newNode = this.head;
-        while(newNode !== null){
+        while (newNode !== null) {
             console.log(newNode.val);
             newNode = newNode.next;
         }
     }
 
-    PopFirst(){
-        if(!this.head) return;
+    PopFirst() {
+        if (!this.head) return;
         this.head = this.head.next;
         this.length--;
         return this;
     }
 
-    Get(i){
-        if(i < 0 || i >= this.length) return null;
+    Get(i) {
+        if (i < 0 || i >= this.length) return null;
         let counter = 0;
         let newNode = this.head;
-        while(counter !== i){
+        while (counter !== i) {
             counter++
             newNode = newNode.next;
         }
         return newNode;
     }
 
-    Set(val, i){
+    Set(val, i) {
         let found = this.Get(i);
-        if(found){
+        if (found) {
             found.val = val;
         }
     }
 
-    InsertAt(val, i){
-        if(i < 0 || i >= this.length) return null;
-        if(i === 0) {
+    InsertAt(val, i) {
+        if (i < 0 || i >= this.length) return null;
+        if (i === 0) {
             this.PushFirst(val);
             return;
-        }else if(i === this.length - 1){
+        } else if (i === this.length - 1) {
             this.Push(val);
             return;
         }
         let newNode = new Node(val);
         let cur = this.head;
         let counter = 0;
-        while(counter !== i - 1){
+        while (counter !== i - 1) {
             cur = cur.next;
             counter++;
         }
@@ -104,11 +104,11 @@ class SinglyLinkedList{
         this.length++;
     }
 
-    RemoveAt(i){
-        if(i < 0 || i >= this.length) return undefined;
+    RemoveAt(i) {
+        if (i < 0 || i >= this.length) return undefined;
         let counter = 0;
         let cur = this.head;
-        while(counter !== i-1){
+        while (counter !== i - 1) {
             cur = cur.next;
             counter++;
         }
@@ -116,12 +116,12 @@ class SinglyLinkedList{
         this.length--;
     }
 
-    ReverseList(){
+    ReverseList() {
         let node = this.head;
         this.head = this.tail;
         this.tail = node;
         let next, prev = null;
-        while(node !== null){
+        while (node !== null) {
             next = node.next;
             node.next = prev;
             prev = node;
@@ -130,12 +130,27 @@ class SinglyLinkedList{
     }
 }
 
+const reverseLinkedList = (head) => {
+    let reversed = null, tmp;
+    while (head) {
+        tmp = head;
+        head = head.next;
+        tmp.next = reversed;
+        reversed = tmp;
+    }
+    return reversed;
+};
+
 let x = new SinglyLinkedList();
-x.Push(10);
-x.Push(20);
-x.Push(30);
-x.Push(40);
-x.Push(50);
-x.ReverseList();
-x.Pop();
-x.Display();
+let y = new SinglyLinkedList();
+x.Push(1);
+x.Push(9);
+x.Push(1);
+x.Push(2);
+x.Push(4);
+
+y.Push(3);
+y.Push(2);
+y.Push(4);
+
+console.log(getIntersectionNode(x.head, y.head))

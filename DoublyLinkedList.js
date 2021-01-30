@@ -13,7 +13,7 @@ class DoublyLinkedList{
         this.length = 0;
     }
 
-    Push(val){
+    gedtPush(val){
         let newNode = new Node(val);
         if(!this.head){
             this.head = this.tail = newNode;

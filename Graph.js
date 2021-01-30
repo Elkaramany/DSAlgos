@@ -28,12 +28,12 @@ class Graph{
 
     recursiveDFS(v){
         let result = [], visited = {};
-        let list = this.adjacencyList;
+        let graph = this.adjacencyList;
         (function DFS(v){
             if(!v) return null;
             visited[v] = true;
             result.push(v);
-            list[v].forEach(neighbour => {
+            graph[v].forEach(neighbour => {
                 if(!visited[neighbour]) return DFS(neighbour)
             });
         })(v);
@@ -88,4 +88,5 @@ g.addEdge("C","E")
 g.addEdge("D","E")
 g.addEdge("D","F")
 g.addEdge("E","F")
-console.log(g.BFS("A"));
+
+console.log(containsNearbyDuplicate([1,2,3,1,2,3], 2));

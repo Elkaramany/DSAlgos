@@ -56,15 +56,20 @@ class BST{
     }
 
     BFS(){
-        let data = [], q = [], node = this.root;
+        let data = [], q = [], node = this.root, avg = 0, size;
         q.push(node);
         while(q.length){
-            node = q.shift();
-            data.push(node);
-            if(node.left) q.push(node.left);
-            if(node.right) q.push(node.right);
+            avg = 0;
+            size = q.length;
+            for(let i = 0; i < size;i++){
+                node = q.shift();
+                avg += node.val;
+                if(node.left) q.push(node.left);
+                if(node.right) q.push(node.right);
+            }
+            data.push(avg / size);
         } 
-        console.log(data);
+        return data;
     }
 
     Inorder(){
@@ -107,5 +112,5 @@ x.Insert(20);
 x.Insert(50);
 x.Insert(5);
 x.Insert(6);
-x.Insert(3);
-console.log(x.Inorder());
+x.Insert(15);
+console.log(x.BFS());
